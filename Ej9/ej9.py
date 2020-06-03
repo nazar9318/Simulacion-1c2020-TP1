@@ -1,14 +1,15 @@
 import numpy as np
 import random as rnd
 import matplotlib.pyplot as plt
+import time
 
-CANTIDAD_DE_MOVIMIENTOS = 300 #cantidad de pasos de cada particula
-CANTIDAD_DE_PARTICULAS = 1000 #cantidad de particulas de cada color
+CANTIDAD_DE_MOVIMIENTOS = 3000 #cantidad de pasos de cada particula
+CANTIDAD_DE_PARTICULAS = 10000 #cantidad de particulas de cada color
 ALTO_DE_LA_CAJA = 200
 ANCHO_DE_LA_CAJA = 100
 
 def ej9():
-
+  start = time.time()
   matriz_particulas_amarillas=crear_matriz(0, 49) #genera todas las posiciones de todas las particulas a la izq (azules)
   matriz_particulas_rojas=crear_matriz(50, 100) #genera todas las posiciones de todas las particulas a la der (rojas)
   
@@ -17,7 +18,9 @@ def ej9():
   d2_izq=calcular_densidad(matriz_particulas_rojas, 0, 49)
   d2_der=calcular_densidad(matriz_particulas_rojas, 50, 100)
 
-  tiempo=np.arange(300)
+  end = time.time()
+  print("time {}".format(end - start))
+  tiempo=np.arange(CANTIDAD_DE_MOVIMIENTOS)
 
   plt.subplot(221).set_title("Amarillas izquierda")
   plt.plot(tiempo,d1_izq/CANTIDAD_DE_PARTICULAS, '.') #cantidad de azules a la izq
@@ -70,8 +73,7 @@ def crear_matriz(limite_x_inferior, limite_x_superior): #N cantidad de particula
     #Posicion inicial en Y 
     A[0][z+1]=rnd.randint(0, ALTO_DE_LA_CAJA)
     r=np.random.random(CANTIDAD_DE_MOVIMIENTOS)
-
-    print("Z {}".format(z))
+    
     for i in range (1,CANTIDAD_DE_MOVIMIENTOS): #simula todos los movimientos de una particula desde el segundo instante de tiempo
         if (r[i]<=0.25 and A[i-1][z+1] < ALTO_DE_LA_CAJA):
           A[i][z+1]=A[i-1][z+1]+1 #que se mueva hacia arriba
@@ -79,10 +81,10 @@ def crear_matriz(limite_x_inferior, limite_x_superior): #N cantidad de particula
         elif (r[i]>0.25 and r[i]<=0.5 and A[i-1][z+1] > 0):
           A[i][z+1]=A[i-1][z+1]-1 #que se mueva hacia abajo
           A[i][z]=A[i-1][z]
-        elif (r[i]>0.5 and r[i]<=0.75 and A[i-1][z] > 0 and particula_puede_moverse_a_la_izquierda(A,i,z)):
+        elif (r[i]>0.5 and r[i]<=0.75 and A[i-1][z] > 0):
           A[i][z]=A[i-1][z]-1 #que se mueva hacia la izquierda
           A[i][z+1]=A[i-1][z+1]
-        elif (r[i]>0.75 and A[i-1][z] < ANCHO_DE_LA_CAJA and particular_puede_mover_a_la_derecha(A,i,z)):
+        elif (r[i]>0.75 and A[i-1][z] < ANCHO_DE_LA_CAJA):
           A[i][z]=A[i-1][z]+1 #que se mueva hacia la derecha
           A[i][z+1]=A[i-1][z+1]
         else:
