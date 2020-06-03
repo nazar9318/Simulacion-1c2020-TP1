@@ -69,7 +69,7 @@ def crear_matriz(limite_x_inferior, limite_x_superior): #N cantidad de particula
     A[0][z]=rnd.randint(limite_x_inferior, limite_x_superior) #elige al azar la posicion incial 
     #Posicion inicial en Y 
     A[0][z+1]=rnd.randint(0, ALTO_DE_LA_CAJA)
-    r=np.random.random(M)
+    r=np.random.random(CANTIDAD_DE_MOVIMIENTOS)
     
     for i in range (1,CANTIDAD_DE_MOVIMIENTOS): #simula todos los movimientos de una particula desde el segundo instante de tiempo
         if (r[i]<=0.25 and A[i-1][z+1] < ALTO_DE_LA_CAJA):
