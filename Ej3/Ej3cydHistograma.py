@@ -28,11 +28,11 @@ numeros = []
 
 #armo la inversa a partir de los puntos y luego invirtiendo los ejes
 #armo la inversa a partir de los puntos y luego invirtiendo los ejes
-xv = [-3.0,-2.0,-1.571,-1.5,-1.4,-1.3,-1.2,-1.1,0.0,1.0,1.1,1.2,1.3,1.4,1.5,1.571,2.0,3.0]
-yv = []
+yv = [-3.0,-2.0,-1.571,-1.5,-1.4,-1.3,-1.2,-1.1,0.0,1.0,1.1,1.2,1.3,1.4,1.5,1.571,2.0,3.0]
+xv = []
 
-for i in xv:
-    yv.append(round(f2(i),2))
+for i in yv:
+    xv.append(round(f2(i),2))
     
 #Carga de números:
 x = 96102
@@ -42,12 +42,13 @@ for i in range(100000):
     x = modulo(x)
    
 inter = interpolate.interp1d(xv,yv)   
-print(inter(numeros))
-#Armo el gráfico
+
+print('Imprimo los primeros 10 puntos a modo de ejemplo: ')
+for i in range(10):
+    print('x= ' + str(numeros[i]) + ' y= ' + str(inter(numeros[i])))
+
+#Armo el histograma 
 plt.hist(inter(numeros), bins='sturges',density=True)
-
-# Limitar los valores de los ejes.
-
 
 # Muestro.
 plt.grid()
