@@ -9,8 +9,8 @@ ANCHO_DE_LA_CAJA = 100
 
 def ej9():
 
-  matriz_particulas_amarillas=crear_matriz(0, 49) #genera todas las posiciones de todas las partículas a la izq (azules)
-  matriz_particulas_rojas=crear_matriz(50, 100) #genera todas las posiciones de todas las partículas a la der (rojas)
+  matriz_particulas_amarillas=crear_matriz(0, 49) #genera todas las posiciones de todas las particulas a la izq (azules)
+  matriz_particulas_rojas=crear_matriz(50, 100) #genera todas las posiciones de todas las particulas a la der (rojas)
   
   d1_izq=calcular_densidad(matriz_particulas_amarillas, 0, 49)
   d1_der=calcular_densidad(matriz_particulas_amarillas, 50, 100)
@@ -19,13 +19,13 @@ def ej9():
 
   tiempo=np.arange(300)
 
-  plt.subplot(221)
+  plt.subplot(221).set_title("Amarillas izquierda")
   plt.plot(tiempo,d1_izq/CANTIDAD_DE_PARTICULAS, '.') #cantidad de azules a la izq
-  plt.subplot(222)
+  plt.subplot(222).set_title("Amarillas derecha")
   plt.plot(tiempo,d1_der/CANTIDAD_DE_PARTICULAS, '.') #cantidad de azules a la der
-  plt.subplot(223)
+  plt.subplot(223).set_title("Rojas izquierda")
   plt.plot(tiempo,d2_izq/CANTIDAD_DE_PARTICULAS, '.') #cantidad de rojos a la izq
-  plt.subplot(224)
+  plt.subplot(224).set_title("Rojas derecha")
   plt.plot(tiempo,d2_der/CANTIDAD_DE_PARTICULAS, '.') #cantidad de rojos a la der
   plt.show()
 
