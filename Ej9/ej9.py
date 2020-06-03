@@ -51,12 +51,12 @@ def calcular_densidad(A, limite_x_inferior, limite_x_superior):
 
 def particula_puede_moverse_a_la_izquierda(A,i,z):
   #Si esta en la parte superior de la caja   
-  if A[i][z+1] >= ALTO_DE_LA_CAJA / 2 :
+  if A[i-1][z+1] >= ALTO_DE_LA_CAJA / 2 :
     return A[i-1][z]-1 > ANCHO_DE_LA_CAJA / 2
   return True
 
 def particular_puede_mover_a_la_derecha(A,i,z):
-  if A[i][z+1] >= ALTO_DE_LA_CAJA / 2 :
+  if A[i-1][z+1] >= ALTO_DE_LA_CAJA / 2 :
     return A[i-1][z]+1 < ANCHO_DE_LA_CAJA / 2
   return True
 
@@ -70,7 +70,8 @@ def crear_matriz(limite_x_inferior, limite_x_superior): #N cantidad de particula
     #Posicion inicial en Y 
     A[0][z+1]=rnd.randint(0, ALTO_DE_LA_CAJA)
     r=np.random.random(CANTIDAD_DE_MOVIMIENTOS)
-    
+
+    print("Z {}".format(z))
     for i in range (1,CANTIDAD_DE_MOVIMIENTOS): #simula todos los movimientos de una particula desde el segundo instante de tiempo
         if (r[i]<=0.25 and A[i-1][z+1] < ALTO_DE_LA_CAJA):
           A[i][z+1]=A[i-1][z+1]+1 #que se mueva hacia arriba
@@ -78,10 +79,10 @@ def crear_matriz(limite_x_inferior, limite_x_superior): #N cantidad de particula
         elif (r[i]>0.25 and r[i]<=0.5 and A[i-1][z+1] > 0):
           A[i][z+1]=A[i-1][z+1]-1 #que se mueva hacia abajo
           A[i][z]=A[i-1][z]
-        elif (r[i]>0.5 and r[i]<=0.75 and A[i-1][z] > 0):
+        elif (r[i]>0.5 and r[i]<=0.75 and A[i-1][z] > 0 and particula_puede_moverse_a_la_izquierda(A,i,z)):
           A[i][z]=A[i-1][z]-1 #que se mueva hacia la izquierda
           A[i][z+1]=A[i-1][z+1]
-        elif (r[i]>0.75 and A[i-1][z] < ANCHO_DE_LA_CAJA):
+        elif (r[i]>0.75 and A[i-1][z] < ANCHO_DE_LA_CAJA and particular_puede_mover_a_la_derecha(A,i,z)):
           A[i][z]=A[i-1][z]+1 #que se mueva hacia la derecha
           A[i][z+1]=A[i-1][z+1]
         else:
