@@ -1,5 +1,5 @@
 function ks()
-    z2= normalRandom(1000);
+    z2= normalRandom(100000);
     disp(['La media de la distribución simulada es = ', num2str(mean(z2))])
     disp(['El desvío estándar de la distribución simulada es = ', num2str(sqrt(var(z2)))])
     
