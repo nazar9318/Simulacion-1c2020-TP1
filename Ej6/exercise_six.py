@@ -1,7 +1,7 @@
 from scipy.stats import chi2
-from exercise_two import exercise_two
+import scipy.stats as st
 
-releases = exercise_two()
+releases = {8: 699, 7: 785, 4: 433, 11: 285, 6: 696, 9: 537, 3: 286, 10: 443, 5: 545, 2: 130, 12: 161}
 frecuencias = releases.values()
 lanzamientos = sum(frecuencias)
 cantidadDeClases = len(frecuencias)
@@ -10,11 +10,12 @@ nivelDeSignificacion = 0.01
 
 frecuenciaEsperada = lanzamientos/cantidadDeClases
 
-D2 = sum([(fO - frecuenciaEsperada)**2 for fO in frecuencias])/(frecuenciaEsperada)
-
 limiteSuperior = chi2.ppf(1 - nivelDeSignificacion,df=gradosDeLibertad)
+(D2,p_value) = st.chisquare(f_obs = frecuencias, f_exp = [frecuenciaEsperada]*cantidadDeClases)
 
-print("D2: {}".format(D2))
+print("D2_2: {}".format(D2))
+print("P_value: {}".format(p_value))
+
 print("Limite superior: {}".format(limiteSuperior))
 
 
