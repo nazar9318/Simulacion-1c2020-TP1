@@ -19,41 +19,50 @@ def random_generator(cantidad):
         x = modulo(x)
     return numeros
 
-def is_zero_or_one(x):
-    if x <= 0.5:
-        return 0
-    return 1
+def get_dice_number(x):
+    if (x <= 0.16):
+        return 1
+    elif(x <= 0.33):
+        return 2
+    elif(x <= 0.5):
+        return 3
+    elif(x <= 0.66):
+        return 4
+    elif(x <= 0.83):
+        return 5
+    else:
+        return 6
 
-def get_dice_number_in_binary(elements):
-    return str(is_zero_or_one(elements[0]))+str(is_zero_or_one(elements[1]))+str(is_zero_or_one(elements[2]))
-
-def get_dice_number(elements):
-    binary_string = get_dice_number_in_binary(elements)
-    return (int(binary_string,2) % 6) + 1
-
+def register_dice(number,dices):
+    dices[number] = dices[number] + 1
 
 def exercise_two():
     quantity = 10000
     releases = {}
-    randoms = random_generator(quantity*3)
-    for x in range(0,quantity*3,6):
-        sub_list = randoms[x:x+6]
-        sub_list_1 = sub_list[3:]
-        sub_list_2 = sub_list[:3]
-        dice_1 = get_dice_number(sub_list_1)
-        dice_2 = get_dice_number(sub_list_2)
-        print("dice_1 {} dice_2 {}".format(dice_1,dice_2))
+    dices = {1:0,2:0,3:0,4:0,5:0,6:0}
+    randoms = random_generator(quantity)
+    for x in range(0,quantity,2):
+        dice_1 = get_dice_number(randoms[x])
+        dice_2 = get_dice_number(randoms[x+1])
+        register_dice(dice_1,dices)
+        register_dice(dice_2,dices)
         suma = dice_1 + dice_2
         print("suma  {}".format(suma))
         if suma in releases:
             releases[suma] = releases[suma] + 1
         else:
             releases[suma] = 1
-    return releases
- 
-releases = exercise_two()
+    return (dices,releases)
+
+
+(dices,releases) = exercise_two()
 print("releases:"+str(releases))
+keys = list(releases.keys())
+keys.sort()
+print("keys:"+str(keys))
+values = list(map(lambda key: releases[key],keys))
+print("values:"+str(values))
 
 
-plt.bar([str(i) for i in releases.keys()], releases.values(), color='g')
+plt.bar([str(i) for i in keys], values, color='g')
 plt.show()

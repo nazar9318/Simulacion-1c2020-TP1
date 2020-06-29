@@ -3,8 +3,8 @@ import random as rnd
 import matplotlib.pyplot as plt
 import time
 
-CANTIDAD_DE_MOVIMIENTOS = 3000 #cantidad de pasos de cada particula
-CANTIDAD_DE_PARTICULAS = 10000 #cantidad de particulas de cada color
+CANTIDAD_DE_MOVIMIENTOS = 300 #cantidad de pasos de cada particula
+CANTIDAD_DE_PARTICULAS = 1000 #cantidad de particulas de cada color
 ALTO_DE_LA_CAJA = 200
 ANCHO_DE_LA_CAJA = 100
 
@@ -13,34 +13,36 @@ def ej9():
   matriz_particulas_amarillas=crear_matriz(0, 49) #genera todas las posiciones de todas las particulas a la izq (azules)
   matriz_particulas_rojas=crear_matriz(50, 100) #genera todas las posiciones de todas las particulas a la der (rojas)
   
-  d1_izq=calcular_densidad(matriz_particulas_amarillas, 0, 49)
-  d1_der=calcular_densidad(matriz_particulas_amarillas, 50, 100)
-  d2_izq=calcular_densidad(matriz_particulas_rojas, 0, 49)
-  d2_der=calcular_densidad(matriz_particulas_rojas, 50, 100)
+  # d1_izq=calcular_densidad(matriz_particulas_amarillas, 0, 49)
+  # d1_der=calcular_densidad(matriz_particulas_amarillas, 50, 100)
+  # d2_izq=calcular_densidad(matriz_particulas_rojas, 0, 49)
+  # d2_der=calcular_densidad(matriz_particulas_rojas, 50, 100)
 
-  end = time.time()
-  print("time {}".format(end - start))
-  tiempo=np.arange(CANTIDAD_DE_MOVIMIENTOS)
+  # end = time.time()
+  # print("time {}".format(end - start))
+  # tiempo=np.arange(CANTIDAD_DE_MOVIMIENTOS)
 
-  plt.subplot(221).set_title("Amarillas izquierda")
-  plt.plot(tiempo,d1_izq/CANTIDAD_DE_PARTICULAS, '.') #cantidad de azules a la izq
-  plt.subplot(222).set_title("Amarillas derecha")
-  plt.plot(tiempo,d1_der/CANTIDAD_DE_PARTICULAS, '.') #cantidad de azules a la der
-  plt.subplot(223).set_title("Rojas izquierda")
-  plt.plot(tiempo,d2_izq/CANTIDAD_DE_PARTICULAS, '.') #cantidad de rojos a la izq
-  plt.subplot(224).set_title("Rojas derecha")
-  plt.plot(tiempo,d2_der/CANTIDAD_DE_PARTICULAS, '.') #cantidad de rojos a la der
-  plt.show()
+  # plt.subplot(221).set_title("Amarillas izquierda")
+  # plt.plot(tiempo,d1_izq/CANTIDAD_DE_PARTICULAS, '.') #cantidad de azules a la izq
+  # plt.subplot(222).set_title("Amarillas derecha")
+  # plt.plot(tiempo,d1_der/CANTIDAD_DE_PARTICULAS, '.') #cantidad de azules a la der
+  # plt.subplot(223).set_title("Rojas izquierda")
+  # plt.plot(tiempo,d2_izq/CANTIDAD_DE_PARTICULAS, '.') #cantidad de rojos a la izq
+  # plt.subplot(224).set_title("Rojas derecha")
+  # plt.plot(tiempo,d2_der/CANTIDAD_DE_PARTICULAS, '.') #cantidad de rojos a la der
+  # plt.show()
 
-  """plt.axis([0, 100, 0, 200])
-  for a in range (0, M-1): #loop de instantes de tiempo
-    for b in range (0,2*N-2, 2):
+  plt.axis([0, 100, 0, 200])
+  for a in range (0, CANTIDAD_DE_MOVIMIENTOS-1,33): #loop de instantes de tiempo
+    for b in range (0,2*CANTIDAD_DE_PARTICULAS-2, 2):
       plt.plot(matriz_particulas_amarillas
   [a][b], matriz_particulas_amarillas
-  [a][b+1], 'b.') #plotea todos los puntos azules
-    for c in range (0,2*N-2, 2):
+  [a][b+1], 'y.') #plotea todos los puntos azules
+    for c in range (0,2*CANTIDAD_DE_PARTICULAS-2, 2):
       plt.plot(matriz_particulas_rojas[a][c], matriz_particulas_rojas[a][c+1], 'r.') #plotea todos los puntos rojos
-    plt.show()"""
+    plt.draw()
+    plt.pause(0.001)
+    plt.clf()
 
 def calcular_densidad(A, limite_x_inferior, limite_x_superior):
 
@@ -81,9 +83,11 @@ def crear_matriz(limite_x_inferior, limite_x_superior): #N cantidad de particula
         elif (r[i]>0.25 and r[i]<=0.5 and A[i-1][z+1] > 0):
           A[i][z+1]=A[i-1][z+1]-1 #que se mueva hacia abajo
           A[i][z]=A[i-1][z]
+        #Para correr el B es necesario agregar la llamada a la funcion particula_puede_moverse_a_la_izquierda         
         elif (r[i]>0.5 and r[i]<=0.75 and A[i-1][z] > 0):
           A[i][z]=A[i-1][z]-1 #que se mueva hacia la izquierda
           A[i][z+1]=A[i-1][z+1]
+        #Para correr el B es necesario agregar la llamada a la funcion particula_puede_moverse_a_la_derecha        
         elif (r[i]>0.75 and A[i-1][z] < ANCHO_DE_LA_CAJA):
           A[i][z]=A[i-1][z]+1 #que se mueva hacia la derecha
           A[i][z+1]=A[i-1][z+1]
