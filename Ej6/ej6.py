@@ -11,7 +11,7 @@ def ej6():
 
     f_esp = cant_observaciones * probabilidades_caras
 
-    (D2,p_valor)=st.chisquare(f_obs,f_esp)
+    (D2, p_valor) = st.chisquare(f_obs, f_esp)
 
     print ('\nFrecuencias esperadas: ', f_esp)
 
