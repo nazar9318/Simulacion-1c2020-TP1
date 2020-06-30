@@ -14,23 +14,15 @@ print("expected: {}".format(str(expected)))
 frecuencias = actual.values()
 lanzamientos = sum(frecuencias)
 print("lanzamientos "+str(lanzamientos))
-cantidadDeClases = len(frecuencias)
-gradosDeLibertad = cantidadDeClases - 1
 nivelDeSignificacion = 0.01
 
-frecuenciaEsperada = lanzamientos/cantidadDeClases
-
-limiteSuperior = chi2.ppf(1 - nivelDeSignificacion,df=gradosDeLibertad)
 (D2,p_value) = st.chisquare(f_obs = frecuencias, f_exp = expected.values())
 
 print("D2_2: {}".format(D2))
 print("P_value: {}".format(p_value))
 
-print("Limite superior: {}".format(limiteSuperior))
-
-
-if D2 <= limiteSuperior:
-    print("El test acepta la hipotesis nula")
+if p_value < nivelDeSignificacion:
+    print("Se rechaza hipotesis H0")
 else:
-    print("El test rechaza la hipotesis nula")
+    print("No hay evidencia suficiente para rechazar H0")
 
