@@ -17,15 +17,13 @@ def ej9():
   grafica_densidades(matriz_particulas_azules, matriz_particulas_rojas)
   
   plt.axis([0, 100, 0, 200])
-  membrana = [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]
-  x_membrana = [50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
   
   for a in range (0, CANTIDAD_DE_MOVIMIENTOS-1, PASOS_GRAFICO): #a es el numero de fila, avanza de a pasos_grafico para plotear
     for b in range (0,2*CANTIDAD_DE_PARTICULAS-2, 2):
       plt.plot(matriz_particulas_azules[a][b], matriz_particulas_azules[a][b+1], 'b.') #plotea todos los puntos azules
     for c in range (0,2*CANTIDAD_DE_PARTICULAS-2, 2):
       plt.plot(matriz_particulas_rojas[a][c], matriz_particulas_rojas[a][c+1], 'r.') #plotea todos los puntos rojos
-    plt.plot(x_membrana, membrana, 'k-')
+    
     plt.draw()
     plt.pause(0.001)
     plt.clf()
