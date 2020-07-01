@@ -23,7 +23,6 @@ def ej9():
       plt.plot(matriz_particulas_azules[a][b], matriz_particulas_azules[a][b+1], 'b.') #plotea todos los puntos azules
     for c in range (0,2*CANTIDAD_DE_PARTICULAS-2, 2):
       plt.plot(matriz_particulas_rojas[a][c], matriz_particulas_rojas[a][c+1], 'r.') #plotea todos los puntos rojos
-    
     plt.draw()
     plt.pause(0.001)
     plt.clf()
