@@ -7,14 +7,14 @@ CANTIDAD_DE_MOVIMIENTOS = 300 #cantidad de pasos de cada particula
 CANTIDAD_DE_PARTICULAS = 1000 #cantidad de particulas de cada color
 ALTO_DE_LA_CAJA = 200
 ANCHO_DE_LA_CAJA = 100
-PASOS_GRAFICO = 10 #cada cuantos movimientos grafica la caja
+PASOS_GRAFICO = 1 #cada cuantos movimientos grafica la caja
 
 def ej9():
 
   matriz_particulas_azules = crear_matriz(0, 49) #genera todas las posiciones de todas las particulas a la izq (azules)
   matriz_particulas_rojas = crear_matriz(51, 100) #genera todas las posiciones de todas las particulas a la der (rojas)
   
-  #grafica_densidades(matriz_particulas_azules, matriz_particulas_rojas)
+  grafica_densidades(matriz_particulas_azules, matriz_particulas_rojas)
   
   plt.axis([0, 100, 0, 200])
   membrana = [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]
