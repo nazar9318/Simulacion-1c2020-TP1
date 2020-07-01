@@ -3,8 +3,8 @@ import random as rnd
 import matplotlib.pyplot as plt
 import time
 
-CANTIDAD_DE_MOVIMIENTOS = 300 #cantidad de pasos de cada particula
-CANTIDAD_DE_PARTICULAS = 1000 #cantidad de particulas de cada color
+CANTIDAD_DE_MOVIMIENTOS = 3000 #cantidad de pasos de cada particula
+CANTIDAD_DE_PARTICULAS = 10000 #cantidad de particulas de cada color
 ALTO_DE_LA_CAJA = 200
 ANCHO_DE_LA_CAJA = 100
 PASOS_GRAFICO = 1 #cada cuantos movimientos grafica la caja
@@ -40,19 +40,16 @@ def crear_matriz(limite_x_inferior, limite_x_superior): #N cantidad de particula
     r = np.random.random(CANTIDAD_DE_MOVIMIENTOS) #vector de randoms para decidir hacia donde se va a mover en cada instante
     
     for i in range (1, CANTIDAD_DE_MOVIMIENTOS): #simula todos los movimientos de una particula desde el segundo instante de tiempo
-        #Para correr el punto b) es necesario agregar la llamada a la funcion puede_moverse_arriba 
-        if (r[i] <= 0.25 and A[i-1][z+1] < ALTO_DE_LA_CAJA and puede_moverse_arriba(A, i, z)): #movimiento en y, se fija si la posicion anterior es inferior al borde superior de la caja
+        if (r[i] <= 0.25 and A[i-1][z+1] < ALTO_DE_LA_CAJA): #movimiento en y, se fija si la posicion anterior es inferior al borde superior de la caja
           A[i][z+1] = A[i-1][z+1] + 1 #que se mueva hacia arriba
           A[i][z] = A[i-1][z] #deja la posicion en x[i] igual que en i-1
         elif (r[i] > 0.25 and r[i] <= 0.5 and A[i-1][z+1] > 0): #movimiento en y, se fija si la posicion anterior es superior al borde inferior de la caja
           A[i][z+1] = A[i-1][z+1] - 1 #que se mueva hacia abajo
-          A[i][z] = A[i-1][z]
-        #Para correr el punto b) es necesario agregar la llamada a la funcion puede_moverse_izq         
-        elif (r[i] > 0.5 and r[i] <= 0.75 and A[i-1][z] > 0 and puede_moverse_izq(A, i, z)):
+          A[i][z] = A[i-1][z]       
+        elif (r[i] > 0.5 and r[i] <= 0.75 and A[i-1][z] > 0):
           A[i][z] = A[i-1][z] - 1 #que se mueva hacia la izquierda
-          A[i][z+1] = A[i-1][z+1]
-        #Para correr el punto b) es necesario agregar la llamada a la funcion puede_moverse_der        
-        elif (r[i] > 0.75 and A[i-1][z] < ANCHO_DE_LA_CAJA and puede_moverse_der(A, i, z)):
+          A[i][z+1] = A[i-1][z+1]      
+        elif (r[i] > 0.75 and A[i-1][z] < ANCHO_DE_LA_CAJA):
           A[i][z] = A[i-1][z] + 1 #que se mueva hacia la derecha
           A[i][z+1] = A[i-1][z+1]
         else: #si no entró a ninguno de los anteriores es porque estaba en el borde la caja entonces se queda donde esta
@@ -90,28 +87,5 @@ def calcular_densidad(A, limite_x_inferior, limite_x_superior):
           contador[a] = contador[a]+1
   
   return contador
-
-def puede_moverse_izq(A, i, z): 
-  if (A[i-1][z+1] >= ALTO_DE_LA_CAJA / 2 and A[i-1][z] < 50): #area naranja
-    return True 
-  elif (A[i-1][z+1] >= ALTO_DE_LA_CAJA / 2 and A[i-1][z] > 51): #area azul
-    return True
-  elif(A[i-1][z+1] <= ALTO_DE_LA_CAJA / 2): #area violeta o verde
-    return True 
-  return False
-
-def puede_moverse_der(A, i, z):
-  if (A[i-1][z+1] >= ALTO_DE_LA_CAJA / 2 and A[i-1][z] < 49): #area naranja
-    return True 
-  elif (A[i-1][z+1] >= ALTO_DE_LA_CAJA / 2 and A[i-1][z] > 50): #area azul
-    return True
-  elif(A[i-1][z+1] <= ALTO_DE_LA_CAJA / 2): #area violeta o verde
-    return True 
-  return False
-
-def puede_moverse_arriba(A, i, z):
-  if (A[i-1][z] == 50 and A[i-1][z+1] == 99):
-    return False
-  return True
 
 ej9()
